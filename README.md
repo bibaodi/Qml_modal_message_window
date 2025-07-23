@@ -7,3 +7,8 @@ appsiho-crashInfomationWindow --dryrun -L="warning" -M="System operation error, 
 ```
 
 - ![result image](resultimage.png)
+
+## ENV:
+- qt6.5
+- debian12
+
