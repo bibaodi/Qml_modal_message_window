@@ -34,7 +34,9 @@ Window {
             id: id_headerTitle
             //x: 0.3 * parent.width
             y: 0.2 * parent.height
+
             //anchors.centerIn: id_textsColumn
+            height: 200
             anchors.horizontalCenter: id_textsColumn.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             property string splitLine: id_textsColumn.repeatChar('-', 32)
@@ -45,6 +47,7 @@ Window {
         }
         Text {
             id: id_headerMessage
+            width: id_textsColumn.width * 0.9
             anchors.centerIn: id_textsColumn
             horizontalAlignment: Text.AlignHCenter
             text: displayText
@@ -62,6 +65,7 @@ Window {
             font.pointSize: 24
             onClicked: {
                 qmlSystemProcessCaller.poweroff("user click button")
+                id_modaldialog.visible = true
             }
         }
     }
@@ -71,5 +75,14 @@ Window {
         if (false === active) {
             qmlSystemProcessCaller.poweroff("lose focus")
         }
+    }
+    Dialog {
+        id: id_modaldialog
+        modal: true
+        width: 800
+        height: 600
+
+        visible: false
+        standardButtons: Dialog.Ok
     }
 }

@@ -1,0 +1,27 @@
+[Unit]
+Description=siho SCD GUI Service
+PartOf=graphical-session.target
+StartLimitIntervalSec=3
+StartLimitBurst=2
+OnFailure=sihoNotify-Servicefailure@.service
+
+[Service]
+Type=exec
+Slice=app.slice
+Environment='GLOG_logtostderr=0'
+WorkingDirectory=/home/iiva/workspace/siholatest
+#ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "GNOME" ""
+#ExecStartPre=:/bin/env bash -c "while test ${DISPLAY:-no} == 'no'; do echo 'wait...' && sleep 0.9; done; echo 'OK'"
+#ExecStartPre=:/bin/env bash -c "while $(/lib/systemd/systemd-xdg-autostart-condition "GNOME" "") != 0; do echo 'wait...' && sleep 0.9; done; echo 'OK'"
+#ExecStartPre=:/bin/env bash -c "while /lib/systemd/systemd-xdg-autostart-condition 'GNOME' '' ; retCode=$? ;  test $retCode -ne 0; do echo $retCode']wait...' && sleep 0.9; done; echo 'OK'"  
+ExecStart=/bin/bash -c 'echo "Hello: $(pwd)" >> /tmp/aaa ;xeyes'
+#ExecStopPost=/bin/sh -c 'WIDTH=1920; HEIGHT=1080; zenity --error --text="The process has failed. Would you like to shutdown the system?" --title="Process Failure" --width=$WIDTH --height=$HEIGHT; if [ $? -eq 0 ]; then echo "`date`: $0 $@ ->>use confirm shutdown" >> /tmp/systemd.stop.log; else echo "use close dialog, shutdown also."; fi'
+#RestartSteps=5
+# Extend the timeout to 5 seconds
+Restart=always
+
+[Install]
+#WantedBy=multi-user.target
+#WantedBy=graphical.target
+WantedBy=default.target
+

@@ -1,0 +1,16 @@
+[Unit]
+Description=SIHO Service Notification Dialog
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/iiva/workspace/siholatest
+ExecStart=/bin/bash -c 'mkdir -p siholooooogs; \
+	echo "`date "+%Y%m%d_%H%M%S"`:SIHO Notification triggered for service %i failed.">>./siholooooogs/failures.log'
+
+ExecStopPost=/bin/bash -c 'MSG_EN="System operation error, ";\
+	MSG_ZH="系统运行错误，请关闭电源后重启，如果问题仍存在请联系厂商。";\
+	./scripts/crashInfoWindow.sh --level=error -M="${MSG_EN}\n${MSG_ZH}"; '
+
+[Install]
+WantedBy=default.target
+
